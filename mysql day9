@@ -1,0 +1,332 @@
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| employee           |
+| information_schema |
+| javaaddon          |
+| library            |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
++--------------------+
+7 rows in set (0.01 sec)
+
+mysql>
+mysql> use employee
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_employee |
++--------------------+
+| emp                |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp;
++-------------+-----------+------------+--------+------------+
+| employee_id | name      | department | salary | join_date  |
++-------------+-----------+------------+--------+------------+
+|           1 | Vivin     | ML         |  30000 | 2025-06-23 |
+|           2 | Kaja      | wd         |  30000 | 2025-06-23 |
+|           3 | Kaja      | fsd        |  30000 | 2025-06-23 |
+|           4 | Sriharish | wd         |  20000 | 2025-12-31 |
+|           5 | abdul     | wd         |  20000 | 2025-12-31 |
+|           6 | raj       | ims        |  15000 | 2025-03-12 |
++-------------+-----------+------------+--------+------------+
+6 rows in set (0.05 sec)
+
+mysql> select name,sal, sal*12 "anual_Salary" from emp where anual_Salary>=12000;
+ERROR 1054 (42S22): Unknown column 'sal' in 'field list'
+mysql> select name,sal, sal*12 "anual_Salary" from emp where anual_Salary>=12000;
+ERROR 1054 (42S22): Unknown column 'sal' in 'field list'
+mysql> select name,sal, sal*12 "anual_Salary" from emp where Salary*12>=12000;
+ERROR 1054 (42S22): Unknown column 'sal' in 'field list'
+mysql> select name,sal, sal*12 "anual_Salary" from emp where salary*12>=12000;
+ERROR 1054 (42S22): Unknown column 'sal' in 'field list'
+mysql> select name,sal, sal*12 anual_Salary from emp where salary*12>=12000;
+ERROR 1054 (42S22): Unknown column 'sal' in 'field list'
+mysql> select name,sal, salary*12 "anual_Salary" from emp where salary*12>=12000;
+ERROR 1054 (42S22): Unknown column 'sal' in 'field list'
+mysql> select name,salary, salary*12 "anual_Salary" from emp where salary*12>=12000;
++-----------+--------+--------------+
+| name      | salary | anual_Salary |
++-----------+--------+--------------+
+| Vivin     |  30000 |       360000 |
+| Kaja      |  30000 |       360000 |
+| Kaja      |  30000 |       360000 |
+| Sriharish |  20000 |       240000 |
+| abdul     |  20000 |       240000 |
+| raj       |  15000 |       180000 |
++-----------+--------+--------------+
+6 rows in set (0.03 sec)
+
+mysql> select name,salary, salary*12 "anual_Salary" from emp where anual_Salary>=12000;
+ERROR 1054 (42S22): Unknown column 'anual_Salary' in 'where clause'
+mysql> select name,salary, salary*12 "anual_Salary" from emp where salary*12>=12000;
++-----------+--------+--------------+
+| name      | salary | anual_Salary |
++-----------+--------+--------------+
+| Vivin     |  30000 |       360000 |
+| Kaja      |  30000 |       360000 |
+| Kaja      |  30000 |       360000 |
+| Sriharish |  20000 |       240000 |
+| abdul     |  20000 |       240000 |
+| raj       |  15000 |       180000 |
++-----------+--------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp where name like "_a%";
++-------------+------+------------+--------+------------+
+| employee_id | name | department | salary | join_date  |
++-------------+------+------------+--------+------------+
+|           2 | Kaja | wd         |  30000 | 2025-06-23 |
+|           3 | Kaja | fsd        |  30000 | 2025-06-23 |
+|           6 | raj  | ims        |  15000 | 2025-03-12 |
++-------------+------+------------+--------+------------+
+3 rows in set (0.02 sec)
+
+mysql> select * from emp where name like "a%";
++-------------+-------+------------+--------+------------+
+| employee_id | name  | department | salary | join_date  |
++-------------+-------+------------+--------+------------+
+|           5 | abdul | wd         |  20000 | 2025-12-31 |
++-------------+-------+------------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where name like "_i%n";
++-------------+-------+------------+--------+------------+
+| employee_id | name  | department | salary | join_date  |
++-------------+-------+------------+--------+------------+
+|           1 | Vivin | ML         |  30000 | 2025-06-23 |
++-------------+-------+------------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where name like "s%";
++-------------+-----------+------------+--------+------------+
+| employee_id | name      | department | salary | join_date  |
++-------------+-----------+------------+--------+------------+
+|           4 | Sriharish | wd         |  20000 | 2025-12-31 |
++-------------+-----------+------------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where salary between 20000 and 30000;
++-------------+-----------+------------+--------+------------+
+| employee_id | name      | department | salary | join_date  |
++-------------+-----------+------------+--------+------------+
+|           1 | Vivin     | ML         |  30000 | 2025-06-23 |
+|           2 | Kaja      | wd         |  30000 | 2025-06-23 |
+|           3 | Kaja      | fsd        |  30000 | 2025-06-23 |
+|           4 | Sriharish | wd         |  20000 | 2025-12-31 |
+|           5 | abdul     | wd         |  20000 | 2025-12-31 |
++-------------+-----------+------------+--------+------------+
+5 rows in set (0.04 sec)
+
+mysql> select * from emp where department not like "m%";
++-------------+-----------+------------+--------+------------+
+| employee_id | name      | department | salary | join_date  |
++-------------+-----------+------------+--------+------------+
+|           2 | Kaja      | wd         |  30000 | 2025-06-23 |
+|           3 | Kaja      | fsd        |  30000 | 2025-06-23 |
+|           4 | Sriharish | wd         |  20000 | 2025-12-31 |
+|           5 | abdul     | wd         |  20000 | 2025-12-31 |
+|           6 | raj       | ims        |  15000 | 2025-03-12 |
++-------------+-----------+------------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * ,'anual salary'=salary*12 from emp where department not like "m%";
++-------------+-----------+------------+--------+------------+--------------------------+
+| employee_id | name      | department | salary | join_date  | 'anual salary'=salary*12 |
++-------------+-----------+------------+--------+------------+--------------------------+
+|           2 | Kaja      | wd         |  30000 | 2025-06-23 |                        0 |
+|           3 | Kaja      | fsd        |  30000 | 2025-06-23 |                        0 |
+|           4 | Sriharish | wd         |  20000 | 2025-12-31 |                        0 |
+|           5 | abdul     | wd         |  20000 | 2025-12-31 |                        0 |
+|           6 | raj       | ims        |  15000 | 2025-03-12 |                        0 |
++-------------+-----------+------------+--------+------------+--------------------------+
+5 rows in set, 1 warning (0.00 sec)
+
+mysql> select * ,'anual salary'salary*12 from emp where department not like "m%";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '*12 from emp where department not like "m%"' at line 1
+mysql> select * ,'anual salary'salary*12 from emp where department not like 'm%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '*12 from emp where department not like 'm%'' at line 1
+mysql> select * ,salary*12 from emp where department not like 'm%';
++-------------+-----------+------------+--------+------------+-----------+
+| employee_id | name      | department | salary | join_date  | salary*12 |
++-------------+-----------+------------+--------+------------+-----------+
+|           2 | Kaja      | wd         |  30000 | 2025-06-23 |    360000 |
+|           3 | Kaja      | fsd        |  30000 | 2025-06-23 |    360000 |
+|           4 | Sriharish | wd         |  20000 | 2025-12-31 |    240000 |
+|           5 | abdul     | wd         |  20000 | 2025-12-31 |    240000 |
+|           6 | raj       | ims        |  15000 | 2025-03-12 |    180000 |
++-------------+-----------+------------+--------+------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * ,salary*12'anual salary' from emp where department not like 'm%';
++-------------+-----------+------------+--------+------------+--------------+
+| employee_id | name      | department | salary | join_date  | anual salary |
++-------------+-----------+------------+--------+------------+--------------+
+|           2 | Kaja      | wd         |  30000 | 2025-06-23 |       360000 |
+|           3 | Kaja      | fsd        |  30000 | 2025-06-23 |       360000 |
+|           4 | Sriharish | wd         |  20000 | 2025-12-31 |       240000 |
+|           5 | abdul     | wd         |  20000 | 2025-12-31 |       240000 |
+|           6 | raj       | ims        |  15000 | 2025-03-12 |       180000 |
++-------------+-----------+------------+--------+------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select * ,salary*12 as 'anual salary' from emp where department not like 'm%';
++-------------+-----------+------------+--------+------------+--------------+
+| employee_id | name      | department | salary | join_date  | anual salary |
++-------------+-----------+------------+--------+------------+--------------+
+|           2 | Kaja      | wd         |  30000 | 2025-06-23 |       360000 |
+|           3 | Kaja      | fsd        |  30000 | 2025-06-23 |       360000 |
+|           4 | Sriharish | wd         |  20000 | 2025-12-31 |       240000 |
+|           5 | abdul     | wd         |  20000 | 2025-12-31 |       240000 |
+|           6 | raj       | ims        |  15000 | 2025-03-12 |       180000 |
++-------------+-----------+------------+--------+------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select sum(salary),name from emp group by department;
++-------------+-------+
+| sum(salary) | name  |
++-------------+-------+
+|       30000 | Kaja  |
+|       15000 | raj   |
+|       30000 | Vivin |
+|       70000 | Kaja  |
++-------------+-------+
+4 rows in set (0.04 sec)
+
+mysql> select sum(salary),department from emp group by department;
++-------------+------------+
+| sum(salary) | department |
++-------------+------------+
+|       30000 | fsd        |
+|       15000 | ims        |
+|       30000 | ML         |
+|       70000 | wd         |
++-------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select sum(salary),department from emp where department=wd;
+ERROR 1054 (42S22): Unknown column 'wd' in 'where clause'
+mysql> select sum(salary),department from emp where department='wd';
++-------------+------------+
+| sum(salary) | department |
++-------------+------------+
+|       70000 | wd         |
++-------------+------------+
+1 row in set (0.03 sec)
+
+mysql> select sum(salary),avg(salary),max(salary)from emp where department='wd';
++-------------+-------------+-------------+
+| sum(salary) | avg(salary) | max(salary) |
++-------------+-------------+-------------+
+|       70000 |  23333.3333 |       30000 |
++-------------+-------------+-------------+
+1 row in set (0.04 sec)
+mysql> use employee
+Database changed
+mysql> select sum(salary),avg(salary),max(salary)from emp group by department;
++-------------+-------------+-------------+
+| sum(salary) | avg(salary) | max(salary) |
++-------------+-------------+-------------+
+|       30000 |  30000.0000 |       30000 |
+|       15000 |  15000.0000 |       15000 |
+|       30000 |  30000.0000 |       30000 |
+|       70000 |  23333.3333 |       30000 |
++-------------+-------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select department,sum(salary),avg(salary),max(salary)from emp group by department;
++------------+-------------+-------------+-------------+
+| department | sum(salary) | avg(salary) | max(salary) |
++------------+-------------+-------------+-------------+
+| fsd        |       30000 |  30000.0000 |       30000 |
+| ims        |       15000 |  15000.0000 |       15000 |
+| ML         |       30000 |  30000.0000 |       30000 |
+| wd         |       70000 |  23333.3333 |       30000 |
++------------+-------------+-------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select department,sum(salary),avg(salary),max(salary),min(salary)from emp group by department;
++------------+-------------+-------------+-------------+-------------+
+| department | sum(salary) | avg(salary) | max(salary) | min(salary) |
++------------+-------------+-------------+-------------+-------------+
+| fsd        |       30000 |  30000.0000 |       30000 |       30000 |
+| ims        |       15000 |  15000.0000 |       15000 |       15000 |
+| ML         |       30000 |  30000.0000 |       30000 |       30000 |
+| wd         |       70000 |  23333.3333 |       30000 |       20000 |
++------------+-------------+-------------+-------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select department,sum(employee) from emp group by department;
+ERROR 1054 (42S22): Unknown column 'employee' in 'field list'
+mysql> select department,sum(employee) from emp group by department;
+ERROR 1054 (42S22): Unknown column 'employee' in 'field list'
+mysql> select department,sum(department) from emp group by department;
++------------+-----------------+
+| department | sum(department) |
++------------+-----------------+
+| fsd        |               0 |
+| ims        |               0 |
+| ML         |               0 |
+| wd         |               0 |
++------------+-----------------+
+4 rows in set, 6 warnings (0.04 sec)
+
+mysql> select * from emp
+    -> ;
++-------------+-----------+------------+--------+------------+
+| employee_id | name      | department | salary | join_date  |
++-------------+-----------+------------+--------+------------+
+|           1 | Vivin     | ML         |  30000 | 2025-06-23 |
+|           2 | Kaja      | wd         |  30000 | 2025-06-23 |
+|           3 | Kaja      | fsd        |  30000 | 2025-06-23 |
+|           4 | Sriharish | wd         |  20000 | 2025-12-31 |
+|           5 | abdul     | wd         |  20000 | 2025-12-31 |
+|           6 | raj       | ims        |  15000 | 2025-03-12 |
++-------------+-----------+------------+--------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select department,count(department) "employee count"group by department;
+ERROR 1054 (42S22): Unknown column 'department' in 'field list'
+mysql> select department,count(department) "employee count" group by department;
+ERROR 1054 (42S22): Unknown column 'department' in 'field list'
+mysql> select department,count(department) "employee count" from emp group by department;
++------------+----------------+
+| department | employee count |
++------------+----------------+
+| fsd        |              1 |
+| ims        |              1 |
+| ML         |              1 |
+| wd         |              3 |
++------------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select department,count(department) "employee count" from emp group by join_date;
++------------+----------------+
+| department | employee count |
++------------+----------------+
+| ims        |              1 |
+| ML         |              3 |
+| wd         |              2 |
++------------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> select department,count(department) "employee count",join_date from emp group by join_date;
++------------+----------------+------------+
+| department | employee count | join_date  |
++------------+----------------+------------+
+| ims        |              1 | 2025-03-12 |
+| ML         |              3 | 2025-06-23 |
+| wd         |              2 | 2025-12-31 |
++------------+----------------+------------+
+3 rows in set (0.00 sec)
+
+mysql>
+
+
+
+
